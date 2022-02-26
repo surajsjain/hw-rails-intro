@@ -17,4 +17,4 @@ RUN rake db:seed
 EXPOSE 8080
 EXPOSE 80
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# CMD ["rails", "server", "-b", "0.0.0.0"]
