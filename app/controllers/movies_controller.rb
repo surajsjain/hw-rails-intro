@@ -10,20 +10,31 @@ class MoviesController < ApplicationController
       @style_title = false
       @style_release = false
       
+      @movies = Movie.all  
       
       what_to_order_by = params[:sort_by]
       
       
       if what_to_order_by == "title"
-        @movies = Movie.order("title")
+        @movies = @movies.order("title")
         @style_title = true
         
       elsif what_to_order_by == "release_date"
-        @movies = Movie.order("release_date")
+        @movies = @movies.order("release_date")
         @style_release = true
         
-      else
-        @movies = Movie.all
+      end
+      
+      # Handling checkboxes
+      @all_ratings = Movie.ratings
+      @user_checks = Movie.user_checks
+
+      if params[:commit]
+        
+        ratings_that_the_user_has_checked =  params[:ratings]
+        @user_checks = Movie.update_checks(@user_checks, ratings_that_the_user_has_checked)
+        @movies = @movies.with_ratings(ratings_that_the_user_has_checked)
+        
       end
       
     end
