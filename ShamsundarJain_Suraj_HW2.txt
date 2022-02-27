@@ -1,0 +1,4 @@
+GitHub URL: https://github.com/surajsjain/hw-rails-intro
+Heroku URL: https://railsintrosuraj.herokuapp.com/
+
+Note: You might have to wait for a while for Heroku to load up. Because the Heroku instance shuts down whenever there is some inactivity (as per Heroku's policies) and restarts when you make a request
