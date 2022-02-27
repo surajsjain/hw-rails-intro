@@ -36,7 +36,7 @@ class MoviesController < ApplicationController
       elsif session[:sort_by] == "release_date"
         @style_release = true
       end
-        
+      
       
       # Handling checkboxes
       @all_ratings = Movie.ratings
@@ -46,8 +46,10 @@ class MoviesController < ApplicationController
       if params[:commit]
         
         if (!params.has_key?(:ratings))
+          flash.keep
           session[:ratings] = Movie.default_ratings
           @user_checks = Movie.default_ratings
+          redirect_to movies_path(:ratings => session[:ratings], :sort_by => session[:sort_by])
         else
           ratings_that_the_user_has_checked = params[:ratings]
           session[:ratings] = ratings_that_the_user_has_checked
