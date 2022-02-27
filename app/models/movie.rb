@@ -15,6 +15,15 @@ class Movie < ActiveRecord::Base
         } 
     end
     
+    def self.default_ratings
+        return {
+            'G' => true,
+            'PG' => true,
+            'PG-13'=>true,
+            'R'=>true
+        } 
+    end
+    
     def self.update_checks(current_checks, ratings_that_the_user_has_checked)
         
         # Resetting everythign first

@@ -41,14 +41,23 @@ class MoviesController < ApplicationController
       # Handling checkboxes
       @all_ratings = Movie.ratings
       @user_checks = Movie.user_checks
-
+      
+      
       if params[:commit]
         
-        ratings_that_the_user_has_checked =  params[:ratings]
-        @user_checks = Movie.update_checks(@user_checks, ratings_that_the_user_has_checked)
-        @movies = @movies.with_ratings(ratings_that_the_user_has_checked)
+        if (!params.has_key?(:ratings))
+          session[:ratings] = Movie.default_ratings
+          @user_checks = Movie.default_ratings
+        else
+          ratings_that_the_user_has_checked = params[:ratings]
+          session[:ratings] = ratings_that_the_user_has_checked
+        end
         
       end
+
+      @user_checks = Movie.update_checks(@user_checks, session[:ratings])
+      @movies = @movies.with_ratings(session[:ratings])
+        
       
     end
   
