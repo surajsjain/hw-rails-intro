@@ -42,14 +42,18 @@ class MoviesController < ApplicationController
       @all_ratings = Movie.ratings
       @user_checks = Movie.user_checks
       
+      if(!session.has_key?(:ratings))
+        session[:ratings] = Movie.default_ratings
+        @user_checks = Movie.default_ratings
+      end
       
       if params[:commit]
         
         if (!params.has_key?(:ratings))
-          flash.keep
+          # flash.keep
           session[:ratings] = Movie.default_ratings
           @user_checks = Movie.default_ratings
-          redirect_to movies_path(:ratings => session[:ratings], :sort_by => session[:sort_by])
+          # redirect_to movies_path(:ratings => session[:ratings], :sort_by => session[:sort_by])
         else
           ratings_that_the_user_has_checked = params[:ratings]
           session[:ratings] = ratings_that_the_user_has_checked
